@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import styles from './MoveOutForm.module.css'
 import { supabase } from '@/lib/supabase'
 import { format } from 'date-fns'
 
@@ -131,52 +130,52 @@ export default function MoveOutForm({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px' }}>
+      <div style={{ background: 'white', borderRadius: '12px', width: '100%', maxWidth: '800px', maxHeight: '90vh', overflow: 'auto' }}>
         
         {/* Header */}
-        <div>
-          <div className={styles.headerContent}>
+        <div style={{ background: 'linear-gradient(135deg, #D85A30 0%, #F0997B 100%)', padding: '2rem', color: 'white', borderRadius: '12px 12px 0 0' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
             <div>
-              <h2>Record move-out</h2>
-              <p>Document tenant departure and process security deposit</p>
+              <h2 style={{ fontSize: '24px', fontWeight: '500', margin: 0, color: 'white' }}>Record move-out</h2>
+              <p style={{ fontSize: '14px', margin: '8px 0 0 0', opacity: 0.9 }}>Document tenant departure and process security deposit</p>
             </div>
-            <button onClick={onClose} className={styles.closeButton}>
+            <button onClick={onClose} style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '28px', cursor: 'pointer', padding: 0, width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}>
               ×
             </button>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className={styles.body}>
+        <form onSubmit={handleSubmit} style={{ padding: '2rem' }}>
           
           {/* Select Tenant */}
-          <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Select tenant</h3>
+          <div style={{ marginBottom: '2rem' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: '500', margin: '0 0 16px 0', paddingBottom: '8px', borderBottom: '0.5px solid #e2e8f0' }}>Select tenant</h3>
             
-            <div className={styles.inputGroup}>
-              <label>
-                Building <span>*</span>
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>
+                Building <span style={{ color: '#A32D2D' }}>*</span>
               </label>
               <select 
                 required
                 value={formData.building_id}
                 onChange={(e) => setFormData({...formData, building_id: e.target.value, tenant_id: ''})}
-               
+                style={{ width: '100%' }}
               >
                 <option value="">Select building first</option>
                 {buildings.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
               </select>
             </div>
 
-            <div className={styles.inputGroup}>
-              <label>
-                Tenant <span>*</span>
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>
+                Tenant <span style={{ color: '#A32D2D' }}>*</span>
               </label>
               <select 
                 required
                 value={formData.tenant_id}
                 onChange={(e) => setFormData({...formData, tenant_id: e.target.value})}
-               
+                style={{ width: '100%', padding: '12px' }}
                 disabled={!formData.building_id}
               >
                 <option value="">Select tenant...</option>
@@ -190,35 +189,35 @@ export default function MoveOutForm({ onClose }: { onClose: () => void }) {
 
             {/* Tenant Info Card */}
             {selectedTenant && (
-              <div>
-                <div>
-                  <div>
+              <div style={{ background: '#f7fafc', borderRadius: '8px', padding: '1.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px', paddingBottom: '16px', borderBottom: '0.5px solid #e2e8f0' }}>
+                  <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: '#FBEAF0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '500', fontSize: '16px', color: '#993556' }}>
                     {selectedTenant.primary_tenant_name.split(', ').reverse().map(n => n[0]).join('')}
                   </div>
                   <div>
-                    <p>{selectedTenant.primary_tenant_name}</p>
-                    <p>
+                    <p style={{ fontWeight: '500', margin: 0, fontSize: '16px' }}>{selectedTenant.primary_tenant_name}</p>
+                    <p style={{ fontSize: '13px', color: '#718096', margin: '4px 0 0 0' }}>
                       {selectedTenant.building_name}, Unit {selectedTenant.unit_number}
                     </p>
                   </div>
                 </div>
                 
-                <div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', fontSize: '14px' }}>
                   <div>
-                    <p>Monthly rent</p>
-                    <p>${selectedTenant.current_rent.toLocaleString()}</p>
+                    <p style={{ color: '#718096', margin: '0 0 6px 0', fontSize: '12px' }}>Monthly rent</p>
+                    <p style={{ fontWeight: '500', fontSize: '18px', margin: 0 }}>${selectedTenant.current_rent.toLocaleString()}</p>
                   </div>
                   <div>
-                    <p>Security deposit on file</p>
-                    <p>${selectedTenant.security_deposit.toLocaleString()}</p>
+                    <p style={{ color: '#718096', margin: '0 0 6px 0', fontSize: '12px' }}>Security deposit on file</p>
+                    <p style={{ fontWeight: '500', fontSize: '18px', margin: 0 }}>${selectedTenant.security_deposit.toLocaleString()}</p>
                   </div>
                   <div>
-                    <p>Move-in date</p>
-                    <p>{format(new Date(selectedTenant.move_in_date), 'MMMM d, yyyy')}</p>
+                    <p style={{ color: '#718096', margin: '0 0 6px 0', fontSize: '12px' }}>Move-in date</p>
+                    <p style={{ fontSize: '14px', margin: 0 }}>{format(new Date(selectedTenant.move_in_date), 'MMMM d, yyyy')}</p>
                   </div>
                   <div>
-                    <p>Lease end</p>
-                    <p>{format(new Date(selectedTenant.lease_end_date), 'MMMM d, yyyy')}</p>
+                    <p style={{ color: '#718096', margin: '0 0 6px 0', fontSize: '12px' }}>Lease end</p>
+                    <p style={{ fontSize: '14px', margin: 0 }}>{format(new Date(selectedTenant.lease_end_date), 'MMMM d, yyyy')}</p>
                   </div>
                 </div>
               </div>
@@ -226,36 +225,36 @@ export default function MoveOutForm({ onClose }: { onClose: () => void }) {
           </div>
 
           {/* Move-Out Details */}
-          <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Move-out details</h3>
+          <div style={{ marginBottom: '2rem' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: '500', margin: '0 0 16px 0', paddingBottom: '8px', borderBottom: '0.5px solid #e2e8f0' }}>Move-out details</h3>
             <div>
-              <label>
-                Move-out date <span>*</span>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>
+                Move-out date <span style={{ color: '#A32D2D' }}>*</span>
               </label>
               <input 
                 type="date" 
                 required
                 value={formData.move_out_date}
                 onChange={(e) => setFormData({...formData, move_out_date: e.target.value})}
-               
+                style={{ width: '100%' }}
               />
             </div>
           </div>
 
           {/* Security Deposit Refund */}
-          <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Security deposit refund</h3>
+          <div style={{ marginBottom: '2rem' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: '500', margin: '0 0 16px 0', paddingBottom: '8px', borderBottom: '0.5px solid #e2e8f0' }}>Security deposit refund</h3>
             
             {selectedTenant && (
-              <div>
-                <div className={styles.inputGroup}>
-                  <p>Original deposit on file</p>
-                  <p>${selectedTenant.security_deposit.toLocaleString()}</p>
+              <div style={{ background: '#f7fafc', borderRadius: '8px', padding: '1.25rem', marginBottom: '16px' }}>
+                <div style={{ marginBottom: '16px' }}>
+                  <p style={{ fontSize: '12px', color: '#718096', margin: '0 0 4px 0' }}>Original deposit on file</p>
+                  <p style={{ fontSize: '24px', fontWeight: '500', margin: 0 }}>${selectedTenant.security_deposit.toLocaleString()}</p>
                 </div>
                 
-                <div>
-                  <label>
-                    Amount to refund <span>*</span>
+                <div style={{ borderTop: '0.5px solid #e2e8f0', paddingTop: '16px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>
+                    Amount to refund <span style={{ color: '#A32D2D' }}>*</span>
                   </label>
                   <input 
                     type="number" 
@@ -264,9 +263,9 @@ export default function MoveOutForm({ onClose }: { onClose: () => void }) {
                     placeholder="0.00"
                     value={formData.deposit_refund_amount}
                     onChange={(e) => setFormData({...formData, deposit_refund_amount: e.target.value})}
-                   
+                    style={{ width: '100%', fontSize: '16px', fontWeight: '500' }}
                   />
-                  <p>
+                  <p style={{ fontSize: '12px', color: '#718096', margin: '8px 0 0 0' }}>
                     Enter the full amount or reduced amount after deductions
                   </p>
                 </div>
@@ -275,38 +274,38 @@ export default function MoveOutForm({ onClose }: { onClose: () => void }) {
           </div>
 
           {/* Notes */}
-          <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Notes</h3>
+          <div style={{ marginBottom: '2rem' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: '500', margin: '0 0 16px 0', paddingBottom: '8px', borderBottom: '0.5px solid #e2e8f0' }}>Notes</h3>
             <div>
               <textarea 
                 placeholder="Unit condition, keys returned, deductions, or any other relevant information..."
                 value={formData.notes}
                 onChange={(e) => setFormData({...formData, notes: e.target.value})}
-               
+                style={{ width: '100%', minHeight: '120px', resize: 'vertical' }}
               />
             </div>
           </div>
 
           {/* Summary */}
           {selectedTenant && formData.move_out_date && formData.deposit_refund_amount && (
-            <div>
-              <h4>Move-out summary</h4>
-              <div>
-                <div>
-                  <span>Tenant:</span>
-                  <span>{selectedTenant.primary_tenant_name}</span>
+            <div style={{ background: '#FAECE7', borderRadius: '8px', padding: '1.25rem', marginBottom: '2rem' }}>
+              <h4 style={{ fontSize: '14px', fontWeight: '500', margin: '0 0 16px 0', color: '#993C1D' }}>Move-out summary</h4>
+              <div style={{ display: 'grid', gap: '12px', fontSize: '14px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span style={{ color: '#718096' }}>Tenant:</span>
+                  <span style={{ fontWeight: '500' }}>{selectedTenant.primary_tenant_name}</span>
                 </div>
-                <div>
-                  <span>Unit:</span>
-                  <span>{selectedTenant.building_name}, Unit {selectedTenant.unit_number}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span style={{ color: '#718096' }}>Unit:</span>
+                  <span style={{ fontWeight: '500' }}>{selectedTenant.building_name}, Unit {selectedTenant.unit_number}</span>
                 </div>
-                <div>
-                  <span>Move-out date:</span>
-                  <span>{format(new Date(formData.move_out_date), 'MMMM d, yyyy')}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span style={{ color: '#718096' }}>Move-out date:</span>
+                  <span style={{ fontWeight: '500' }}>{format(new Date(formData.move_out_date), 'MMMM d, yyyy')}</span>
                 </div>
-                <div>
-                  <span>Deposit refund:</span>
-                  <span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '12px', borderTop: '0.5px solid #F0997B' }}>
+                  <span style={{ color: '#718096' }}>Deposit refund:</span>
+                  <span style={{ fontWeight: '500', fontSize: '16px', color: '#1D9E75' }}>
                     ${parseFloat(formData.deposit_refund_amount).toLocaleString()}
                   </span>
                 </div>
@@ -315,18 +314,18 @@ export default function MoveOutForm({ onClose }: { onClose: () => void }) {
           )}
 
           {/* Actions */}
-          <div className={styles.actions}>
+          <div style={{ display: 'flex', gap: '12px', paddingTop: '1.5rem', borderTop: '0.5px solid #e2e8f0' }}>
             <button 
               type="submit" 
               disabled={loading}
-              className={styles.saveButton} disabled={loading}
+              style={{ flex: 1, padding: '14px', background: '#D85A30', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '500', fontSize: '14px', cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.6 : 1 }}
             >
               {loading ? 'Processing...' : 'Record move-out'}
             </button>
             <button 
               type="button"
               onClick={onClose}
-              className={styles.cancelButton}
+              style={{ padding: '14px 24px', background: 'transparent', border: '0.5px solid #e2e8f0', borderRadius: '8px', fontWeight: '500', fontSize: '14px' }}
             >
               Cancel
             </button>

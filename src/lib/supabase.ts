@@ -5,6 +5,35 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
+// Auth helper to get current user
+export async function getCurrentUser() {
+  const { data: { user } } = await supabase.auth.getUser()
+  return user
+}
+
+// Get user's company and role
+export async function getUserProfile(email: string) {
+  const { data, error } = await supabase
+    .from('app_users')
+    .select('*, companies(*)')
+    .eq('email', email)
+    .single()
+  
+  if (error) throw error
+  return data
+}
+
+// Get user's accessible buildings
+export async function getUserBuildings(email: string) {
+  const { data, error } = await supabase
+    .from('user_building_access')
+    .select('building_id, buildings(*)')
+    .eq('user_email', email)
+  
+  if (error) throw error
+  return data
+}
+
 export type Database = {
   public: {
     Tables: {

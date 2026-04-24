@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import styles from './EditTenantForm.module.css'
 import { supabase } from '@/lib/supabase'
 import { format, addMonths, startOfMonth } from 'date-fns'
 
@@ -280,53 +279,53 @@ export default function EditTenantForm({ tenantId, onClose }: { tenantId: number
 
   if (loading || !tenant) {
     return (
-      <div>
-        <div>Loading...</div>
+      <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+        <div style={{ background: 'white', padding: '2rem', borderRadius: '12px' }}>Loading...</div>
       </div>
     )
   }
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px' }}>
+      <div style={{ background: 'white', borderRadius: '12px', width: '100%', maxWidth: '800px', maxHeight: '90vh', overflow: 'auto' }}>
         
         {/* Header */}
-        <div>
-          <div className={styles.headerContent}>
+        <div style={{ background: 'linear-gradient(135deg, #378ADD 0%, #85B7EB 100%)', padding: '2rem', color: 'white', borderRadius: '12px 12px 0 0' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
             <div>
-              <h2>Edit tenant</h2>
-              <p>
+              <h2 style={{ fontSize: '24px', fontWeight: '500', margin: 0, color: 'white' }}>Edit tenant</h2>
+              <p style={{ fontSize: '14px', margin: '8px 0 0 0', opacity: 0.9 }}>
                 {buildings.find(b => b.id === tenant.building_id)?.name}, Unit {tenant.unit_number}
               </p>
             </div>
-            <button onClick={onClose} className={styles.closeButton}>
+            <button onClick={onClose} style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '28px', cursor: 'pointer', padding: 0, width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}>
               ×
             </button>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className={styles.body}>
+        <form onSubmit={handleSubmit} style={{ padding: '2rem' }}>
           
           {/* Unit Information */}
-          <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Unit information</h3>
-            <div className={styles.row}>
+          <div style={{ marginBottom: '2rem' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: '500', margin: '0 0 16px 0', paddingBottom: '8px', borderBottom: '0.5px solid #e2e8f0' }}>Unit information</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
-                <label>Building</label>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>Building</label>
                 <select 
                   value={formData.building_id}
                   onChange={(e) => setFormData({...formData, building_id: e.target.value, unit_id: ''})}
-                 
+                  style={{ width: '100%' }}
                 >
                   {buildings.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
                 </select>
               </div>
               <div>
-                <label>Unit number</label>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>Unit number</label>
                 <select 
                   value={formData.unit_id}
                   onChange={(e) => setFormData({...formData, unit_id: e.target.value})}
-                 
+                  style={{ width: '100%' }}
                 >
                   {availableUnits.map(u => <option key={u.id} value={u.id}>{u.unit_number}</option>)}
                 </select>
@@ -335,60 +334,60 @@ export default function EditTenantForm({ tenantId, onClose }: { tenantId: number
           </div>
 
           {/* Primary Tenant */}
-          <div className={styles.section}>
-            <div>
-              <h3>Primary tenant</h3>
+          <div style={{ marginBottom: '2rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', paddingBottom: '8px', borderBottom: '0.5px solid #e2e8f0' }}>
+              <h3 style={{ fontSize: '15px', fontWeight: '500', margin: 0 }}>Primary tenant</h3>
               {hasSecondary && (
                 <button 
                   type="button"
                   onClick={switchTenants}
-                 
+                  style={{ padding: '6px 12px', fontSize: '12px', background: 'transparent', border: '0.5px solid #e2e8f0', borderRadius: '6px' }}
                 >
                   ↑↓ Switch with secondary
                 </button>
               )}
             </div>
-            <div className={styles.inputGroup}>
-              <label>Full name</label>
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>Full name</label>
               <input 
                 type="text" 
                 required
                 value={formData.primary_name}
                 onChange={(e) => setFormData({...formData, primary_name: e.target.value})}
-               
+                style={{ width: '100%' }}
               />
             </div>
-            <div className={styles.row}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
-                <label>Email</label>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>Email</label>
                 <input 
                   type="email" 
                   value={formData.primary_email}
                   onChange={(e) => setFormData({...formData, primary_email: e.target.value})}
-                 
+                  style={{ width: '100%' }}
                 />
               </div>
               <div>
-                <label>Phone</label>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>Phone</label>
                 <input 
                   type="tel" 
                   value={formData.primary_phone}
                   onChange={(e) => setFormData({...formData, primary_phone: e.target.value})}
-                 
+                  style={{ width: '100%' }}
                 />
               </div>
             </div>
           </div>
 
           {/* Secondary Tenant */}
-          <div className={styles.section}>
-            <div>
-              <h3>Secondary tenant</h3>
+          <div style={{ marginBottom: '2rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', paddingBottom: '8px', borderBottom: '0.5px solid #e2e8f0' }}>
+              <h3 style={{ fontSize: '15px', fontWeight: '500', margin: 0 }}>Secondary tenant</h3>
               {hasSecondary && (
                 <button 
                   type="button"
                   onClick={removeSecondary}
-                 
+                  style={{ padding: '6px 12px', fontSize: '12px', background: 'transparent', border: '0.5px solid #A32D2D', borderRadius: '6px', color: '#A32D2D' }}
                 >
                   − Remove
                 </button>
@@ -397,43 +396,43 @@ export default function EditTenantForm({ tenantId, onClose }: { tenantId: number
             
             {hasSecondary ? (
               <>
-                <div className={styles.inputGroup}>
-                  <label>Full name</label>
+                <div style={{ marginBottom: '16px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>Full name</label>
                   <input 
                     type="text" 
                     value={formData.secondary_name}
                     onChange={(e) => setFormData({...formData, secondary_name: e.target.value})}
-                   
+                    style={{ width: '100%' }}
                   />
                 </div>
-                <div className={styles.row}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div>
-                    <label>Email</label>
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>Email</label>
                     <input 
                       type="email" 
                       value={formData.secondary_email}
                       onChange={(e) => setFormData({...formData, secondary_email: e.target.value})}
-                     
+                      style={{ width: '100%' }}
                     />
                   </div>
                   <div>
-                    <label>Phone</label>
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>Phone</label>
                     <input 
                       type="tel" 
                       value={formData.secondary_phone}
                       onChange={(e) => setFormData({...formData, secondary_phone: e.target.value})}
-                     
+                      style={{ width: '100%' }}
                     />
                   </div>
                 </div>
               </>
             ) : (
               <div>
-                <p>No secondary tenant on this lease</p>
+                <p style={{ fontSize: '13px', color: '#718096', margin: 0 }}>No secondary tenant on this lease</p>
                 <button 
                   type="button"
                   onClick={addSecondary}
-                 
+                  style={{ padding: '8px 16px', fontSize: '13px', marginTop: '12px', background: 'transparent', border: '0.5px solid #e2e8f0', borderRadius: '6px' }}
                 >
                   + Add secondary tenant
                 </button>
@@ -442,45 +441,45 @@ export default function EditTenantForm({ tenantId, onClose }: { tenantId: number
           </div>
 
           {/* Rent Information */}
-          <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Rent information</h3>
+          <div style={{ marginBottom: '2rem' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: '500', margin: '0 0 16px 0', paddingBottom: '8px', borderBottom: '0.5px solid #e2e8f0' }}>Rent information</h3>
             
             {/* Current Rent Display */}
-            <div>
-              <div>
+            <div style={{ background: '#f7fafc', borderRadius: '8px', padding: '1.25rem', marginBottom: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 <div>
-                  <p>Current monthly rent</p>
-                  <p>${tenant.current_rent.toLocaleString()}</p>
+                  <p style={{ fontSize: '12px', color: '#718096', margin: '0 0 6px 0' }}>Current monthly rent</p>
+                  <p style={{ fontSize: '24px', fontWeight: '500', margin: 0 }}>${tenant.current_rent.toLocaleString()}</p>
                 </div>
                 <div>
-                  <p>Rent anniversary date</p>
-                  <p>{format(new Date(tenant.rent_anniversary_date), 'MMM d, yyyy')}</p>
-                  <p>Next date rent can be increased</p>
+                  <p style={{ fontSize: '12px', color: '#718096', margin: '0 0 6px 0' }}>Rent anniversary date</p>
+                  <p style={{ fontSize: '24px', fontWeight: '500', margin: 0 }}>{format(new Date(tenant.rent_anniversary_date), 'MMM d, yyyy')}</p>
+                  <p style={{ fontSize: '11px', color: '#718096', margin: '4px 0 0 0' }}>Next date rent can be increased</p>
                 </div>
               </div>
             </div>
 
             {/* Rent History */}
-            <div>
-              <div>
-                <h4>Rent history</h4>
+            <div style={{ background: '#f7fafc', borderRadius: '8px', padding: '1rem', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                <h4 style={{ fontSize: '13px', fontWeight: '500', margin: 0 }}>Rent history</h4>
                 <button 
                   type="button"
                   onClick={() => setShowAddIncrease(!showAddIncrease)}
-                 
+                  style={{ padding: '4px 10px', fontSize: '11px', background: 'white', border: '0.5px solid #e2e8f0', borderRadius: '6px' }}
                 >
                   + Add increase
                 </button>
               </div>
               
-              <div>
+              <div style={{ display: 'grid', gap: '8px' }}>
                 {/* Current rent */}
-                <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px', background: 'white', borderRadius: '6px', fontSize: '13px' }}>
                   <div>
-                    <span>${tenant.current_rent.toLocaleString()}/mo</span>
-                    <span>Current</span>
+                    <span style={{ fontWeight: '500' }}>${tenant.current_rent.toLocaleString()}/mo</span>
+                    <span style={{ color: '#718096', marginLeft: '12px' }}>Current</span>
                   </div>
-                  <span>
+                  <span style={{ color: '#718096' }}>
                     {rentHistory.length > 0 
                       ? format(new Date(rentHistory[0].effective_date), 'MMM d, yyyy')
                       : format(new Date(tenant.move_in_date), 'MMM d, yyyy')}
@@ -489,34 +488,34 @@ export default function EditTenantForm({ tenantId, onClose }: { tenantId: number
                 
                 {/* Previous increases */}
                 {rentHistory.slice(1).map((increase) => (
-                  <div key={increase.id}>
+                  <div key={increase.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px', background: 'white', borderRadius: '6px', fontSize: '13px' }}>
                     <div>
-                      <span>${increase.new_rent.toLocaleString()}/mo</span>
+                      <span style={{ fontWeight: '500', color: '#718096' }}>${increase.new_rent.toLocaleString()}/mo</span>
                     </div>
-                    <span>{format(new Date(increase.effective_date), 'MMM d, yyyy')}</span>
+                    <span style={{ color: '#718096' }}>{format(new Date(increase.effective_date), 'MMM d, yyyy')}</span>
                   </div>
                 ))}
                 
                 {/* Original rent */}
-                <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px', background: 'white', borderRadius: '6px', fontSize: '13px' }}>
                   <div>
-                    <span>${tenant.original_rent.toLocaleString()}/mo</span>
-                    <span>Original</span>
+                    <span style={{ fontWeight: '500', color: '#718096' }}>${tenant.original_rent.toLocaleString()}/mo</span>
+                    <span style={{ color: '#718096', marginLeft: '12px' }}>Original</span>
                   </div>
-                  <span>{format(new Date(tenant.move_in_date), 'MMM d, yyyy')}</span>
+                  <span style={{ color: '#718096' }}>{format(new Date(tenant.move_in_date), 'MMM d, yyyy')}</span>
                 </div>
               </div>
             </div>
 
             {/* Add Rent Increase Form */}
             {showAddIncrease && (
-              <div>
-                <h4>Record rent increase</h4>
+              <div style={{ background: '#E6F1FB', border: '0.5px solid #85B7EB', borderRadius: '8px', padding: '1rem', marginBottom: '16px' }}>
+                <h4 style={{ fontSize: '14px', fontWeight: '500', margin: '0 0 16px 0', color: '#185FA5' }}>Record rent increase</h4>
                 
-                <div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
                   <div>
-                    <label>
-                      New rent amount <span>*</span>
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>
+                      New rent amount <span style={{ color: '#A32D2D' }}>*</span>
                     </label>
                     <input 
                       type="number" 
@@ -524,12 +523,12 @@ export default function EditTenantForm({ tenantId, onClose }: { tenantId: number
                       placeholder="0.00"
                       value={increaseData.new_rent}
                       onChange={(e) => setIncreaseData({...increaseData, new_rent: e.target.value})}
-                     
+                      style={{ width: '100%' }}
                     />
                   </div>
                   <div>
-                    <label>
-                      Effective date <span>*</span>
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>
+                      Effective date <span style={{ color: '#A32D2D' }}>*</span>
                     </label>
                     <input 
                       type="date" 
@@ -538,32 +537,32 @@ export default function EditTenantForm({ tenantId, onClose }: { tenantId: number
                         setIncreaseData({...increaseData, effective_date: e.target.value})
                       }}
                       onBlur={autoFillAnniversary}
-                     
+                      style={{ width: '100%' }}
                     />
                   </div>
                 </div>
                 
-                <div className={styles.inputGroup}>
-                  <label>
-                    New rent anniversary date <span>*</span>
+                <div style={{ marginBottom: '16px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>
+                    New rent anniversary date <span style={{ color: '#A32D2D' }}>*</span>
                   </label>
                   <input 
                     type="date" 
                     value={increaseData.new_anniversary_date}
                     onChange={(e) => setIncreaseData({...increaseData, new_anniversary_date: e.target.value})}
-                   
+                    style={{ width: '100%' }}
                   />
-                  <p>
+                  <p style={{ fontSize: '11px', color: '#718096', margin: '4px 0 0 0' }}>
                     Usually 12 months from effective date (first of month)
                   </p>
                 </div>
                 
-                <div>
+                <div style={{ display: 'flex', gap: '8px' }}>
                   <button 
                     type="button"
                     onClick={handleAddRentIncrease}
                     disabled={!increaseData.new_rent || !increaseData.effective_date || !increaseData.new_anniversary_date}
-                   
+                    style={{ padding: '10px 18px', fontSize: '13px', background: '#378ADD', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '500', cursor: 'pointer' }}
                   >
                     Save increase
                   </button>
@@ -573,7 +572,7 @@ export default function EditTenantForm({ tenantId, onClose }: { tenantId: number
                       setShowAddIncrease(false)
                       setIncreaseData({ new_rent: '', effective_date: '', new_anniversary_date: '' })
                     }}
-                   
+                    style={{ padding: '10px 18px', fontSize: '13px', background: 'transparent', border: '0.5px solid #e2e8f0', borderRadius: '6px' }}
                   >
                     Cancel
                   </button>
@@ -581,76 +580,76 @@ export default function EditTenantForm({ tenantId, onClose }: { tenantId: number
               </div>
             )}
 
-            <div className={styles.row}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
-                <label>Security deposit</label>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>Security deposit</label>
                 <input 
                   type="number" 
                   step="0.01"
                   value={formData.security_deposit}
                   onChange={(e) => setFormData({...formData, security_deposit: e.target.value})}
-                 
+                  style={{ width: '100%' }}
                 />
               </div>
               <div>
-                <label>Lease end date</label>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>Lease end date</label>
                 <input 
                   type="date" 
                   value={formData.lease_end_date}
                   onChange={(e) => setFormData({...formData, lease_end_date: e.target.value})}
-                 
+                  style={{ width: '100%' }}
                 />
               </div>
             </div>
           </div>
 
           {/* Additional Information */}
-          <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Additional information</h3>
-            <div>
-              <label>
+          <div style={{ marginBottom: '2rem' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: '500', margin: '0 0 16px 0', paddingBottom: '8px', borderBottom: '0.5px solid #e2e8f0' }}>Additional information</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                 <input 
                   type="checkbox" 
                   checked={formData.has_pet}
                   onChange={(e) => setFormData({...formData, has_pet: e.target.checked})}
-                 
+                  style={{ width: '16px', height: '16px' }}
                 />
-                <span>Pet on premises</span>
+                <span style={{ fontSize: '13px' }}>Pet on premises</span>
               </label>
-              <label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                 <input 
                   type="checkbox" 
                   checked={formData.has_parking}
                   onChange={(e) => setFormData({...formData, has_parking: e.target.checked})}
-                 
+                  style={{ width: '16px', height: '16px' }}
                 />
-                <span>Parking space included</span>
+                <span style={{ fontSize: '13px' }}>Parking space included</span>
               </label>
             </div>
             <div>
-              <label>Notes</label>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', marginBottom: '6px' }}>Notes</label>
               <textarea 
                 placeholder="Any special terms, arrangements, or important details..."
                 value={formData.notes}
                 onChange={(e) => setFormData({...formData, notes: e.target.value})}
-               
+                style={{ width: '100%', minHeight: '100px', resize: 'vertical' }}
               />
             </div>
           </div>
 
           {/* Actions */}
-          <div className={styles.actions}>
+          <div style={{ display: 'flex', gap: '12px', paddingTop: '1.5rem', borderTop: '0.5px solid #e2e8f0' }}>
             <button 
               type="submit" 
               disabled={saving}
-             
+              style={{ flex: 1, padding: '14px', background: '#378ADD', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '500', fontSize: '14px', cursor: saving ? 'not-allowed' : 'pointer', opacity: saving ? 0.6 : 1 }}
             >
               {saving ? 'Saving...' : 'Save changes'}
             </button>
             <button 
               type="button"
               onClick={onClose}
-              className={styles.cancelButton}
+              style={{ padding: '14px 24px', background: 'transparent', border: '0.5px solid #e2e8f0', borderRadius: '8px', fontWeight: '500', fontSize: '14px' }}
             >
               Cancel
             </button>

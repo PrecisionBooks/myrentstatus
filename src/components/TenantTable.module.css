@@ -1,0 +1,422 @@
+.container {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  background: linear-gradient(135deg, #534AB7 0%, #7F77DD 100%);
+  padding: 2rem;
+  color: white;
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.headerTitle h1 {
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  color: white;
+}
+
+.headerTitle p {
+  font-size: 14px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.headerButtons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.headerButton {
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.headerButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.headerButton.primary {
+  background: white;
+  color: #534AB7;
+  border-color: white;
+}
+
+.headerButton.primary:hover {
+  background: #f7fafc;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 2rem;
+  background: #f7fafc;
+}
+
+.statCard {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.statCard h3 {
+  font-size: 12px;
+  color: #718096;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statCard p {
+  font-size: 28px;
+  color: #1a202c;
+  margin: 0;
+  font-weight: 700;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  padding: 1.5rem 2rem;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #534AB7;
+}
+
+.filterSelect {
+  padding: 10px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: #534AB7;
+}
+
+.clearButton {
+  padding: 10px 20px;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clearButton:hover {
+  background: #edf2f7;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background: #f7fafc;
+}
+
+.table th {
+  text-align: left;
+  padding: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background 0.2s;
+}
+
+.table tbody tr:hover {
+  background: #f7fafc;
+}
+
+.table td {
+  padding: 16px;
+  font-size: 14px;
+  color: #1a202c;
+}
+
+.tenantCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.tenantInfo {
+  min-width: 0;
+}
+
+.tenantName {
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tenantEmail {
+  font-size: 12px;
+  color: #718096;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge.dueSoon {
+  background: #FAEEDA;
+  color: #854F0B;
+}
+
+.badge.overdue {
+  background: #FCEBEB;
+  color: #A32D2D;
+}
+
+.badge.upcoming {
+  background: #E6F1FB;
+  color: #185FA5;
+}
+
+.editButton {
+  padding: 6px 16px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.editButton:hover {
+  background: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+.pagination {
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+}
+
+.paginationInfo {
+  font-size: 14px;
+  color: #718096;
+}
+
+.exportButton {
+  padding: 10px 20px;
+  background: #534AB7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.exportButton:hover {
+  background: #4239a0;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  font-size: 16px;
+  color: #718096;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .header {
+    padding: 1.5rem;
+  }
+
+  .headerTop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerTitle h1 {
+    font-size: 22px;
+  }
+
+  .headerButtons {
+    width: 100%;
+  }
+
+  .headerButton {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 1.5rem;
+  }
+
+  .statCard {
+    padding: 16px;
+  }
+
+  .statCard p {
+    font-size: 22px;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+  }
+
+  .searchInput,
+  .filterSelect {
+    width: 100%;
+  }
+
+  /* Hide table on mobile, show card view */
+  .tableWrapper {
+    display: none;
+  }
+
+  .mobileCards {
+    display: block;
+    padding: 1rem;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 12px;
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobileCards {
+    display: none;
+  }
+}
+
+/* Mobile card view */
+.mobileCard {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.mobileCard .tenantCell {
+  margin-bottom: 12px;
+}
+
+.mobileCardRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f7fafc;
+  font-size: 14px;
+}
+
+.mobileCardRow:last-child {
+  border-bottom: none;
+}
+
+.mobileCardLabel {
+  color: #718096;
+  font-weight: 500;
+}
+
+.mobileCardValue {
+  color: #1a202c;
+  font-weight: 600;
+  text-align: right;
+}
+
+.mobileCardActions {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+}
