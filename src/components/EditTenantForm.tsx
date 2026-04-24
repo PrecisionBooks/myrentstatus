@@ -38,7 +38,13 @@ type Tenant = {
   unit_number: string
 }
 
-export default function EditTenantForm({ tenantId, onClose }: { tenantId: number; onClose: () => void }) {
+type Props = {
+  tenantId: number
+  onClose: () => void
+  userRole: string
+}
+
+export default function EditTenantForm({ tenantId, onClose, userRole }: Props) {
   const [tenant, setTenant] = useState<Tenant | null>(null)
   const [buildings, setBuildings] = useState<Building[]>([])
   const [units, setUnits] = useState<Unit[]>([])

@@ -20,13 +20,15 @@ type Tenant = {
 }
 
 type Props = {
+  userEmail: string
+  userRole: string
   onMoveIn: () => void
   onMoveOut: () => void
   onEditTenant: (tenantId: number) => void
   onLogout: () => void
 }
 
-export default function TenantTable({ onMoveIn, onMoveOut, onEditTenant, onLogout }: Props) {
+export default function TenantTable({ userEmail, userRole, onMoveIn, onMoveOut, onEditTenant, onLogout }: Props) {
   const [tenants, setTenants] = useState<Tenant[]>([])
   const [filteredTenants, setFilteredTenants] = useState<Tenant[]>([])
   const [loading, setLoading] = useState(true)

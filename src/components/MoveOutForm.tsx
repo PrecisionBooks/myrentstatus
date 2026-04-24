@@ -19,7 +19,12 @@ type Tenant = {
   building_name: string
 }
 
-export default function MoveOutForm({ onClose }: { onClose: () => void }) {
+type Props = {
+  onClose: () => void
+  userEmail: string
+}
+
+export default function MoveOutForm({ onClose, userEmail }: Props) {
   const [buildings, setBuildings] = useState<Building[]>([])
   const [allTenants, setAllTenants] = useState<Tenant[]>([])
   const [filteredTenants, setFilteredTenants] = useState<Tenant[]>([])

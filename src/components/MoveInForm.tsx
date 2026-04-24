@@ -8,7 +8,12 @@ import { format, addMonths, startOfMonth } from 'date-fns'
 type Building = { id: number; name: string }
 type Unit = { id: number; unit_number: string; building_id: number }
 
-export default function MoveInForm({ onClose }: { onClose: () => void }) {
+type Props = {
+  onClose: () => void
+  userEmail: string
+}
+
+export default function MoveInForm({ onClose, userEmail }: Props) {
   const [buildings, setBuildings] = useState<Building[]>([])
   const [units, setUnits] = useState<Unit[]>([])
   const [availableUnits, setAvailableUnits] = useState<Unit[]>([])
