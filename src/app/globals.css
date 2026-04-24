@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f7fafc;
+  --color-background-tertiary: #f5f7fa;
+  --color-text-primary: #1a202c;
+  --color-text-secondary: #718096;
+  --color-border-tertiary: rgba(0, 0, 0, 0.15);
+  --color-border-secondary: rgba(0, 0, 0, 0.3);
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: #f5f7fa;
+  color: #2d3748;
+}
+
+input, select, textarea {
+  font-family: inherit;
+}
+
+input, select {
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+  background: white;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #4299e1;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+textarea {
+  font-family: inherit;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+  background: white;
+}
