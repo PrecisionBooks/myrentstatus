@@ -359,7 +359,6 @@ export default function TenantTable({ userEmail, userRole, onMoveIn, onMoveOut, 
             </p>
           </div>
         </div>
-      </div>
     </>
   )
 }
