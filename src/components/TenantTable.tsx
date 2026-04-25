@@ -99,7 +99,7 @@ export default function TenantTable({ userEmail, userRole, onMoveIn, onMoveOut, 
     const occupied = tenantList.length
     const totalRent = tenantList.reduce((sum, t) => sum + t.current_rent, 0)
     const totalDeposits = tenantList.reduce((sum, t) => sum + t.security_deposit, 0)
-    
+
     setStats({
       occupied,
       vacant: 63 - occupied,
@@ -113,7 +113,7 @@ export default function TenantTable({ userEmail, userRole, onMoveIn, onMoveOut, 
 
     // Search
     if (searchTerm) {
-      filtered = filtered.filter(t => 
+      filtered = filtered.filter(t =>
         t.primary_tenant_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         t.unit_number.includes(searchTerm) ||
         t.building_name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -142,7 +142,7 @@ export default function TenantTable({ userEmail, userRole, onMoveIn, onMoveOut, 
     // Sort
     if (sortBy) {
       filtered.sort((a, b) => {
-        switch(sortBy) {
+        switch (sortBy) {
           case 'rent-asc': return a.current_rent - b.current_rent
           case 'rent-desc': return b.current_rent - a.current_rent
           case 'deposit-asc': return a.security_deposit - b.security_deposit
@@ -194,7 +194,7 @@ export default function TenantTable({ userEmail, userRole, onMoveIn, onMoveOut, 
     const today = new Date()
     const anniversary = new Date(date)
     const diffMonths = (anniversary.getFullYear() - today.getFullYear()) * 12 + (anniversary.getMonth() - today.getMonth())
-    
+
     if (diffMonths < 0) return { label: 'Due now', color: '#FCEBEB', textColor: '#A32D2D' }
     if (diffMonths <= 1) return { label: format(anniversary, 'MMM yyyy'), color: '#FAEEDA', textColor: '#854F0B' }
     return { label: format(anniversary, 'MMM yyyy'), color: '#EAF3DE', textColor: '#3B6D11' }
@@ -250,116 +250,116 @@ export default function TenantTable({ userEmail, userRole, onMoveIn, onMoveOut, 
           </div>
         </div>
 
-          {/* Filters */}
-          <div className={styles.filters}>
-            <input
-              type="text"
-              placeholder="Search by name, unit, or building..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className={styles.searchInput}
-            />
-            <select value={buildingFilter} onChange={(e) => setBuildingFilter(e.target.value)} className={styles.filterSelect}>
-              <option value="">All buildings</option>
-              {[1,2,3,4,5,6,7].map(n => <option key={n} value={`Building ${n}`}>Building {n}</option>)}
-            </select>
-            <select value={monthFilter} onChange={(e) => setMonthFilter(e.target.value)} className={styles.filterSelect}>
-              <option value="">All months</option>
-              {['January','February','March','April','May','June','July','August','September','October','November','December'].map((m, i) => 
-                <option key={i} value={String(i+1).padStart(2,'0')}>{m}</option>
-              )}
-            </select>
-            <select value={rentRangeFilter} onChange={(e) => setRentRangeFilter(e.target.value)} className={styles.filterSelect}>
-              <option value="">All rent ranges</option>
-              <option value="0-1500">Under $1,500</option>
-              <option value="1500-1800">$1,500 - $1,800</option>
-              <option value="1800-2000">$1,800 - $2,000</option>
-              <option value="2000-10000">Over $2,000</option>
-            </select>
-            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className={styles.filterSelect}>
-              <option value="">Sort by...</option>
-              <option value="rent-asc">Rent (low to high)</option>
-              <option value="rent-desc">Rent (high to low)</option>
-              <option value="deposit-asc">Deposit (low to high)</option>
-              <option value="deposit-desc">Deposit (high to low)</option>
-              <option value="movein-asc">Move-in (oldest)</option>
-              <option value="movein-desc">Move-in (newest)</option>
-            </select>
-            <button onClick={clearFilters} className={styles.clearButton}>
-              Clear filters
-            </button>
-          </div>
+        {/* Filters */}
+        <div className={styles.filters}>
+          <input
+            type="text"
+            placeholder="Search by name, unit, or building..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className={styles.searchInput}
+          />
+          <select value={buildingFilter} onChange={(e) => setBuildingFilter(e.target.value)} className={styles.filterSelect}>
+            <option value="">All buildings</option>
+            {[1, 2, 3, 4, 5, 6, 7].map(n => <option key={n} value={`Building ${n}`}>Building {n}</option>)}
+          </select>
+          <select value={monthFilter} onChange={(e) => setMonthFilter(e.target.value)} className={styles.filterSelect}>
+            <option value="">All months</option>
+            {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((m, i) =>
+              <option key={i} value={String(i + 1).padStart(2, '0')}>{m}</option>
+            )}
+          </select>
+          <select value={rentRangeFilter} onChange={(e) => setRentRangeFilter(e.target.value)} className={styles.filterSelect}>
+            <option value="">All rent ranges</option>
+            <option value="0-1500">Under $1,500</option>
+            <option value="1500-1800">$1,500 - $1,800</option>
+            <option value="1800-2000">$1,800 - $2,000</option>
+            <option value="2000-10000">Over $2,000</option>
+          </select>
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className={styles.filterSelect}>
+            <option value="">Sort by...</option>
+            <option value="rent-asc">Rent (low to high)</option>
+            <option value="rent-desc">Rent (high to low)</option>
+            <option value="deposit-asc">Deposit (low to high)</option>
+            <option value="deposit-desc">Deposit (high to low)</option>
+            <option value="movein-asc">Move-in (oldest)</option>
+            <option value="movein-desc">Move-in (newest)</option>
+          </select>
+          <button onClick={clearFilters} className={styles.clearButton}>
+            Clear filters
+          </button>
+        </div>
 
-          {/* Table */}
-          <div className={styles.tableWrapper}>
-            <table className={styles.table}>
-              <thead>
+        {/* Table */}
+        <div className={styles.tableWrapper}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Tenant</th>
+                <th>Unit</th>
+                <th>Rent</th>
+                <th>Deposit</th>
+                <th>Move-in</th>
+                <th>Lease end</th>
+                <th>Next increase</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredTenants.length === 0 ? (
                 <tr>
-                  <th>Tenant</th>
-                  <th>Unit</th>
-                  <th>Rent</th>
-                  <th>Deposit</th>
-                  <th>Move-in</th>
-                  <th>Lease end</th>
-                  <th>Next increase</th>
-                  <th></th>
+                  <td colSpan={8} className={styles.loading}>
+                    No tenants found
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {filteredTenants.length === 0 ? (
-                  <tr>
-                    <td colSpan={8} className={styles.loading}>
-                      No tenants found
-                    </td>
-                  </tr>
-                ) : (
-                  filteredTenants.map((tenant) => {
-                    const initials = tenant.primary_tenant_name.split(', ').reverse().map(n => n[0]).join('')
-                    const status = getAnniversaryStatus(tenant.rent_anniversary_date)
-                    
-                    return (
-                      <tr key={tenant.id}>
-                        <td>
-                          <div className={styles.tenantCell}>
-                            <div className={styles.avatar} style={{ background: '#EEEDFE', color: '#534AB7' }}>
-                              {initials}
-                            </div>
-                            <div className={styles.tenantInfo}>
-                              <p className={styles.tenantName}>{tenant.primary_tenant_name}</p>
-                              <p className={styles.tenantEmail}>{tenant.primary_tenant_email}</p>
-                            </div>
-                          </div>
-                        </td>
-                        <td>{tenant.building_name}, #{tenant.unit_number}</td>
-                        <td style={{ fontWeight: '500' }}>${tenant.current_rent.toLocaleString()}</td>
-                        <td>${tenant.security_deposit.toLocaleString()}</td>
-                        <td style={{ color: '#718096' }}>{format(new Date(tenant.move_in_date), 'MMM d, yyyy')}</td>
-                        <td style={{ color: '#718096' }}>{format(new Date(tenant.lease_end_date), 'MMM d, yyyy')}</td>
-                        <td>
-                          <span className={styles.badge} style={{ background: status.color, color: status.textColor }}>
-                            {status.label}
-                          </span>
-                        </td>
-                        <td>
-                          <button onClick={() => onEditTenant(tenant.id)} className={styles.editButton}>
-                            Edit
-                          </button>
-                        </td>
-                      </tr>
-                    )
-                  })
-                )}
-              </tbody>
-            </table>
-          </div>
+              ) : (
+                filteredTenants.map((tenant) => {
+                  const initials = tenant.primary_tenant_name.split(', ').reverse().map(n => n[0]).join('')
+                  const status = getAnniversaryStatus(tenant.rent_anniversary_date)
 
-          <div className={styles.pagination}>
-            <p className={styles.paginationInfo}>
-              Showing {filteredTenants.length} of {tenants.length} tenants
-            </p>
-          </div>
+                  return (
+                    <tr key={tenant.id}>
+                      <td>
+                        <div className={styles.tenantCell}>
+                          <div className={styles.avatar} style={{ background: '#EEEDFE', color: '#534AB7' }}>
+                            {initials}
+                          </div>
+                          <div className={styles.tenantInfo}>
+                            <p className={styles.tenantName}>{tenant.primary_tenant_name}</p>
+                            <p className={styles.tenantEmail}>{tenant.primary_tenant_email}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>{tenant.building_name}, #{tenant.unit_number}</td>
+                      <td style={{ fontWeight: '500' }}>${tenant.current_rent.toLocaleString()}</td>
+                      <td>${tenant.security_deposit.toLocaleString()}</td>
+                      <td style={{ color: '#718096' }}>{format(new Date(tenant.move_in_date), 'MMM d, yyyy')}</td>
+                      <td style={{ color: '#718096' }}>{format(new Date(tenant.lease_end_date), 'MMM d, yyyy')}</td>
+                      <td>
+                        <span className={styles.badge} style={{ background: status.color, color: status.textColor }}>
+                          {status.label}
+                        </span>
+                      </td>
+                      <td>
+                        <button onClick={() => onEditTenant(tenant.id)} className={styles.editButton}>
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        <div className={styles.pagination}>
+          <p className={styles.paginationInfo}>
+            Showing {filteredTenants.length} of {tenants.length} tenants
+          </p>
         </div>
       </div>
+    </div >
     </>
   )
 }
